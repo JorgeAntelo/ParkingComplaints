@@ -13,6 +13,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { isNullOrUndefined } from "util";
 
 import { AgmCoreModule, MapsAPILoader } from "@agm/core";
+import { decrypt } from 'src/app/utils/encrypt';
 
 
 
@@ -656,9 +657,12 @@ export class AbanComponent implements AfterViewInit {
     };
 
     this.indLoading = true;
-    this._dataService.post(Global.DLMS_API_URL + 'api/Aban/Search', searchobj)
-      .subscribe(items => {
-        // console.log(items);
+    this._dataService.post(Global.DLMS_API_URL + 'api/Aban/GetComplaintDetailList', searchobj)
+      .subscribe(res => {
+        
+        const decodedData = decrypt(res.data);
+        const items = JSON.parse(decodedData);
+        
         if (items.length == 1) {
           var item = items[0];
           this.CancelReasonId = item.CancelReasonId;
