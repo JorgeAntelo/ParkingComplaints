@@ -1,0 +1,7 @@
+
+
+::ng-deep .tooltipbig {
+   padding: 5px;
+    font-size: 18px;
+text-transform: capitalize;
+  }
