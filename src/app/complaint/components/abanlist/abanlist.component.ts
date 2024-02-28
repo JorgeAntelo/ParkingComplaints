@@ -9,6 +9,7 @@ import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { ExcelService } from 'src/app/core/services/excel.service';
 import { MatOptionSelectionChange, fadeInContent } from '@angular/material';
+import { decrypt } from 'src/app/utils/encrypt';
 
 @Component({
   selector: 'app-abanlist',
@@ -672,8 +673,11 @@ PermissionPageId: number;
       };
       
       this.indLoading = true;
-      this._dataService.post(Global.DLMS_API_URL + 'api/Aban/Search', searchobj)
-      .subscribe(AbanList => {
+      this._dataService.post(Global.DLMS_API_URL + 'api/Aban/GetComplaintDetailList', searchobj)
+      .subscribe(res => {
+
+        const decodedData = decrypt(res.data);
+        const AbanList = JSON.parse(decodedData);
        
         if (AbanList != null && AbanList.length > 0) {
           let Itemexport = [];
@@ -1018,8 +1022,12 @@ if(val){
       this.pageNumber = pageNumber;
       this.pageSize = pageSize;
       this.indLoading = true;
-      this._dataService.post(Global.DLMS_API_URL + 'api/Aban/Search', searchobj)
-        .subscribe(items => {
+      this._dataService.post(Global.DLMS_API_URL + 'api/Aban/GetComplaintDetailList', searchobj)
+        .subscribe(res => {
+
+          const decodedData = decrypt(res.data);
+          const items = JSON.parse(decodedData);
+
           this.startListTimer();
           this.AbanList = items;
           if (this.AbanList != null && this.AbanList.length > 0) {
