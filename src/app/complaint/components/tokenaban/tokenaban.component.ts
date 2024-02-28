@@ -105,7 +105,7 @@ export class TokenabanComponent implements OnInit {
     };
 
     this.indLoading = true;
-    this._dataService.post(Global.DLMS_API_URL + 'api/Aban/Search', searchobj)
+    this._dataService.post(Global.DLMS_API_URL + 'api/Aban/GetComplaintDataList', searchobj)
       .subscribe(items => {
         // console.log(items);
         if (items.length == 1) {

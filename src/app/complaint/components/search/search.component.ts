@@ -102,7 +102,7 @@ export class SearchComponent implements OnInit {
 
 
       this.indLoading = true;
-      this._dataService.post(Global.DLMS_API_URL + 'api/Aban/Search', searchobj)
+      this._dataService.post(Global.DLMS_API_URL + 'api/Aban/GetComplaintDataList', searchobj)
         .subscribe(items => {
           this.AbanList = items;
           //console.log(this.contractList);
